@@ -25,12 +25,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import hu.ait.spyloop.data.PlayerName
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StartScreen(
-    startViewModel: StartViewModel = hiltViewModel()
+    startViewModel: StartViewModel = hiltViewModel(),
+    navController: NavController? = null
 ) {
     var showAddPlayerDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -60,13 +62,23 @@ fun StartScreen(
             )
         }
 
+        Row {
+            Text(text = "Welcome")
+            Spacer(modifier = Modifier.width(16.dp))
+            Button(onClick = {
+                navController?.navigate("categoriesScreen")
+            }) { Text(text = "Choose Category") }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
         ) {
             items(startViewModel.playerNames) { playerName ->
                 PlayerCard(
-                    _playerName = playerName,
+                    playerName = playerName,
                     onRemoveItem = { removedPlayer -> startViewModel.removePlayer(removedPlayer) }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
@@ -147,7 +159,7 @@ private fun AddNewPlayer(
 
 @Composable
 fun PlayerCard(
-    _playerName: PlayerName,
+    playerName: PlayerName,
     onRemoveItem: (PlayerName) -> Unit = {},
     onCityClick: () -> Unit = {}
 ) {
@@ -172,7 +184,7 @@ fun PlayerCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = _playerName.playerName,
+                    text = playerName.playerName,
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.weight(0.8f)
                 )
@@ -181,7 +193,7 @@ fun PlayerCard(
                     contentDescription = "Delete",
                     modifier = Modifier
                         .size(24.dp)
-                        .clickable { onRemoveItem(_playerName) },
+                        .clickable { onRemoveItem(playerName) },
                     tint = Color.Red
                 )
                 IconButton(

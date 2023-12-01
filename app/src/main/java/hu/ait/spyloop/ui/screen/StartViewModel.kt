@@ -14,15 +14,16 @@ class StartViewModel @Inject constructor(
 ) : ViewModel() {
 
     var playerNames by mutableStateOf<List<PlayerName>>(emptyList())
-    private val cityNames: MutableList<PlayerName> = mutableListOf()
+    private val _playerNames: MutableList<PlayerName> = mutableListOf()
+
 
     fun addPlayer(player: PlayerName) {
-        cityNames.add(player)
-        playerNames = cityNames.toList()
+        _playerNames.add(player)
+        playerNames = _playerNames.toList()
     }
 
     fun removePlayer(player: PlayerName) {
-        cityNames.remove(player)
-        playerNames = cityNames.toList()
+        _playerNames.remove(player)
+        playerNames = _playerNames.toList()
     }
 }

@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.HiltAndroidApp
+import hu.ait.spyloop.ui.screen.CategoriesScreen
 import hu.ait.spyloop.ui.screen.StartScreen
 
 @HiltAndroidApp
@@ -16,7 +17,11 @@ class MainApplication : Application() {
 
         NavHost(navController = navController, startDestination = "main") {
             composable("main") {
-                StartScreen()
+                StartScreen(navController = navController)
+            }
+            composable("categoriesScreen") {
+                // Your categories screen composable
+                CategoriesScreen()
             }
         }
     }
