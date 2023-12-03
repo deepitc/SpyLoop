@@ -1,6 +1,6 @@
 # SpyLoop
 
-## Roster:
+## Devs:
 - Maddy Andersen
 - Deepit Chandgothia
 - Stella Oh
