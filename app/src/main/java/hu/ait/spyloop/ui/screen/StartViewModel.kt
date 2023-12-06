@@ -14,12 +14,21 @@ class StartViewModel @Inject constructor(
 ) : ViewModel() {
 
     var playerNames by mutableStateOf<List<PlayerName>>(emptyList())
+    val categoriesList: List<String> = listOf("a", "b", "c")
     private val _playerNames: MutableList<PlayerName> = mutableListOf()
 
 
     fun addPlayer(player: PlayerName) {
         _playerNames.add(player)
         playerNames = _playerNames.toList()
+    }
+
+    fun getPlayers(): List<String> {
+        return playerNames.map { it.name }
+    }
+
+    fun getOutofLoop(players: List<String>): String {
+        return players.random()
     }
 
     fun removePlayer(player: PlayerName) {

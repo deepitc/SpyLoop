@@ -66,7 +66,11 @@ fun StartScreen(
             Text(text = "Welcome")
             Spacer(modifier = Modifier.width(16.dp))
             Button(onClick = {
-                navController?.navigate("categoriesScreen")
+                navController?.navigate(
+                    "categoriesScreen/${
+                        startViewModel.getPlayers().joinToString(",")
+                    }"
+                )
             }) { Text(text = "Choose Category") }
         }
 
@@ -120,13 +124,12 @@ private fun AddNewPlayer(
 
             if (showError) {
                 Spacer(modifier = Modifier.height(8.dp))
-                if (playerName.trim().isEmpty()){
+                if (playerName.trim().isEmpty()) {
                     Text(
                         text = "Player name cannot be empty",
                         color = Color.Red
                     )
-                }
-                else {
+                } else {
                     Text(
                         text = "Player name cannot contain numbers",
                         color = Color.Red
@@ -160,13 +163,11 @@ private fun AddNewPlayer(
 @Composable
 fun PlayerCard(
     playerName: PlayerName,
-    onRemoveItem: (PlayerName) -> Unit = {},
-    onCityClick: () -> Unit = {}
+    onRemoveItem: (PlayerName) -> Unit = {}
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onCityClick() },
+            .fillMaxWidth(),
         shape = RoundedCornerShape(16.dp)
     ) {
         var expanded by rememberSaveable { mutableStateOf(false) }
@@ -184,7 +185,7 @@ fun PlayerCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = playerName.playerName,
+                    text = playerName.name,
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.weight(0.8f)
                 )
