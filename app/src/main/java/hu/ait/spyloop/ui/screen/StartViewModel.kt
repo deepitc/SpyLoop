@@ -14,7 +14,7 @@ class StartViewModel @Inject constructor(
 ) : ViewModel() {
 
     var playerNames by mutableStateOf<List<PlayerName>>(emptyList())
-    val categoriesList: List<String> = listOf("a", "b", "c")
+    val categoriesList: List<String> = listOf("Locations", "Food", "Household Items")
     private val _playerNames: MutableList<PlayerName> = mutableListOf()
 
 

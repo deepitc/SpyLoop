@@ -22,8 +22,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import hu.ait.spyloop.data.PlayerName
@@ -35,25 +37,35 @@ fun StartScreen(
     navController: NavController? = null
 ) {
     var showAddPlayerDialog by rememberSaveable { mutableStateOf(false) }
+    var showErrorSnackbar by rememberSaveable { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        TopAppBar(
-            title = { Text("Spy Loop Game") },
-            colors = TopAppBarDefaults.smallTopAppBarColors(
-                containerColor = MaterialTheme.colorScheme.secondaryContainer
-            ),
-            actions = {
-                IconButton(onClick = { showAddPlayerDialog = true }) {
-                    Icon(Icons.Filled.AddCircle, null)
+        Surface(
+            color = MaterialTheme.colorScheme.onBackground
+        ) {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "Spy Loop Game",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+                    )
+                },
+                actions = {
+                    IconButton(onClick = { showAddPlayerDialog = true }) {
+                        Icon(Icons.Filled.AddCircle, null)
+                    }
                 }
-            }
-        )
+            )
+        }
 
-        Spacer(modifier = Modifier.height(16.dp))
+
+        Spacer(modifier = Modifier.height(10.dp))
 
         if (showAddPlayerDialog) {
             AddNewPlayer(
@@ -63,18 +75,43 @@ fun StartScreen(
         }
 
         Row {
-            Text(text = "Welcome")
-            Spacer(modifier = Modifier.width(16.dp))
-            Button(onClick = {
-                navController?.navigate(
-                    "categoriesScreen/${
-                        startViewModel.getPlayers().joinToString(",")
-                    }"
+            Button(
+                onClick = {
+                    val players = startViewModel.getPlayers()
+
+                    if (players.isNotEmpty()) {
+                        navController?.navigate("categoriesScreen/${players.joinToString(",")}")
+                    } else {
+                        showErrorSnackbar = true
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                shape = MaterialTheme.shapes.medium,
+                colors = ButtonDefaults.buttonColors(
+                    contentColor = MaterialTheme.colorScheme.onPrimary
                 )
-            }) { Text(text = "Choose Category") }
+            ) {
+                Text(text = "Choose Category")
+            }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        if (showErrorSnackbar) {
+            Snackbar(
+                modifier = Modifier.padding(16.dp),
+                action = {
+                    Button(onClick = { showErrorSnackbar = false }) {
+                        Text("OK")
+                    }
+                }
+            ) {
+                Text("No players available.\nAdd players first.")
+            }
+        }
+
+
+        Spacer(modifier = Modifier.height(10.dp))
 
         LazyColumn(
             modifier = Modifier
@@ -85,7 +122,7 @@ fun StartScreen(
                     playerName = playerName,
                     onRemoveItem = { removedPlayer -> startViewModel.removePlayer(removedPlayer) }
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(10.dp))
             }
         }
     }
@@ -98,7 +135,11 @@ private fun AddNewPlayer(
     onDialogDismiss: () -> Unit = {}
 ) {
     Dialog(
-        onDismissRequest = onDialogDismiss
+        onDismissRequest = onDialogDismiss,
+        properties = DialogProperties(
+            dismissOnBackPress = true,
+            dismissOnClickOutside = true
+        )
     ) {
         var playerName by rememberSaveable { mutableStateOf("") }
         var showError by rememberSaveable { mutableStateOf(false) }
@@ -106,7 +147,7 @@ private fun AddNewPlayer(
         Column(
             Modifier
                 .background(
-                    color = MaterialTheme.colorScheme.secondaryContainer,
+                    color = MaterialTheme.colorScheme.background,
                     shape = MaterialTheme.shapes.medium
                 )
                 .padding(16.dp)
@@ -137,7 +178,7 @@ private fun AddNewPlayer(
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             Row(
                 modifier = Modifier
@@ -145,14 +186,23 @@ private fun AddNewPlayer(
                     .padding(8.dp),
                 horizontalArrangement = Arrangement.End
             ) {
-                Button(onClick = {
-                    if (playerName.trim().isNotEmpty() && !playerName.any { it.isDigit() }) {
-                        startViewModel.addPlayer(PlayerName(playerName))
-                        onDialogDismiss()
-                    } else {
-                        showError = true
-                    }
-                }) {
+                Button(
+                    onClick = {
+                        if (playerName.trim().isNotEmpty() && !playerName.any { it.isDigit() }) {
+                            startViewModel.addPlayer(PlayerName(playerName))
+                            onDialogDismiss()
+                        } else {
+                            showError = true
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    shape = MaterialTheme.shapes.medium,
+                    colors = ButtonDefaults.buttonColors(
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    )
+                ) {
                     Text(text = "Save")
                 }
             }
@@ -167,7 +217,8 @@ fun PlayerCard(
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(8.dp),
         shape = RoundedCornerShape(16.dp)
     ) {
         var expanded by rememberSaveable { mutableStateOf(false) }
