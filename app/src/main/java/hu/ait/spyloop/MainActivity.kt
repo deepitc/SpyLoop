@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun NavHost (
+fun NavHost(
     navController: NavHostController = rememberNavController(),
     startDestination: String = "splashscreen"
 ) {
@@ -61,14 +61,15 @@ fun NavHost (
         }
         composable("categoriesscreen") {
             CategoriesScreen(
-                onNavigateToGameScreen = {
-                        category -> navController.navigate("gamescreen/$category")
+                onNavigateToGameScreen = { category ->
+                    navController.navigate("gamescreen/$category")
                 }
             )
         }
-        composable("gamescreen/{category}",
+        composable(
+            "gamescreen/{category}",
             arguments = listOf(
-                navArgument("category"){type = NavType.StringType},
+                navArgument("category") { type = NavType.StringType },
             )
         ) {
             val category = it.arguments?.getString("category")

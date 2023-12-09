@@ -1,6 +1,5 @@
 package hu.ait.spyloop.ui.screen
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -12,7 +11,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import hu.ait.spyloop.data.Player
-import kotlin.math.log
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -20,15 +18,15 @@ fun GameScreen(
     startViewModel: StartViewModel = hiltViewModel(),
     categoryName: String,
 ) {
-    //val categoryName = "Food"
-/*
-    val players = listOf(
-        Player("Player 1", false),
-        Player("Player 2", false),
-        Player("Player 3", true),
-    )
+    // val categoryName = "Food"
+    /*
+        val players = listOf(
+            Player("Player 1", false),
+            Player("Player 2", false),
+            Player("Player 3", true),
+        )
 
- */
+     */
 
     val players = startViewModel.getAllPlayers()
 

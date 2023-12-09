@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Delete
@@ -25,14 +24,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import hu.ait.spyloop.data.Player
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,7 +37,7 @@ fun StartScreen(
     startViewModel: StartViewModel = hiltViewModel(),
     onNavigateToCategoriesScreen: () -> Unit,
 
-) {
+    ) {
     var showAddPlayerDialog by rememberSaveable { mutableStateOf(false) }
     var showErrorSnackbar by rememberSaveable { mutableStateOf(false) }
 
@@ -124,7 +120,7 @@ fun StartScreen(
             items(startViewModel.getAllPlayers()) {
                 PlayerCard(
                     player = it,
-                    onRemoveItem = {startViewModel.removePlayer(it)}
+                    onRemoveItem = { startViewModel.removePlayer(it) }
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             }
@@ -140,7 +136,7 @@ private fun AddNewPlayer(
 ) {
     // will be used when we extract strings
     val context = LocalContext.current
-    
+
     Dialog(
         onDismissRequest = onDialogDismiss,
         properties = DialogProperties(
@@ -189,7 +185,8 @@ private fun AddNewPlayer(
                 value = playerName,
                 onValueChange = {
                     playerName = it
-                    validName(playerName) },
+                    validName(playerName)
+                },
                 label = { Text(text = "Enter Player Name") },
                 trailingIcon = {
                     if (nameErrorState)
@@ -219,7 +216,7 @@ private fun AddNewPlayer(
             ) {
                 Button(
                     onClick = {
-                        if (playerName.isNotEmpty() && !nameErrorState){
+                        if (playerName.isNotEmpty() && !nameErrorState) {
                             startViewModel.addPlayer(
                                 Player(
                                     playerName,
