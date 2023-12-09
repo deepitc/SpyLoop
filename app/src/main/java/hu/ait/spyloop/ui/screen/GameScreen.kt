@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import hu.ait.spyloop.data.Player
+import kotlin.math.log
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,9 +31,24 @@ fun GameScreen(
  */
 
     val players = startViewModel.getAllPlayers()
-   
+
+    val player1 = Player(
+        "abc",
+        false
+    )
+    val player2 = Player(
+        "def",
+        false
+    )
+    val player3 = Player(
+        "ghi",
+        false
+    )
+
+    val playerList = listOf(player1, player2, player3)
+
     // might want to move this to the categories screen? we can play around with it
-    val outOfLooper: Player = startViewModel.pickOutOfLoop(players)
+    val outOfLooper: Player = startViewModel.pickOutOfLoop(playerList)
 
     var currentPlayerIndex by remember { mutableStateOf(0) }
 
@@ -77,11 +93,11 @@ fun GameScreen(
                 .padding(16.dp)
         )
 
-        Confirmation(players[currentPlayerIndex]) {
-            if (currentPlayerIndex < players.size - 1) {
+        Confirmation(playerList[currentPlayerIndex]) {
+            if (currentPlayerIndex < playerList.size - 1) {
                 currentPlayerIndex++
             } else {
-                // fill in
+                // TODO:
             }
         }
     }
@@ -94,7 +110,7 @@ fun Confirmation(player: Player, onNavigateToAssignments: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Is this $player?", fontSize = 24.sp, textAlign = TextAlign.Center)
+        Text(text = "Is this ${player.name}", fontSize = 24.sp, textAlign = TextAlign.Center)
 
         Spacer(modifier = Modifier.height(16.dp))
 
