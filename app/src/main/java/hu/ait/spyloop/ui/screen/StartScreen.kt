@@ -11,30 +11,36 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import hu.ait.spyloop.data.PlayerName
+import hu.ait.spyloop.data.Player
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StartScreen(
     startViewModel: StartViewModel = hiltViewModel(),
-    navController: NavController? = null
+    onNavigateToCategoriesScreen: () -> Unit,
+
 ) {
     var showAddPlayerDialog by rememberSaveable { mutableStateOf(false) }
     var showErrorSnackbar by rememberSaveable { mutableStateOf(false) }
@@ -64,7 +70,6 @@ fun StartScreen(
             )
         }
 
-
         Spacer(modifier = Modifier.height(10.dp))
 
         if (showAddPlayerDialog) {
@@ -77,10 +82,10 @@ fun StartScreen(
         Row {
             Button(
                 onClick = {
-                    val players = startViewModel.getPlayers()
+                    val players = startViewModel.getAllPlayers()
 
-                    if (players.isNotEmpty()) {
-                        navController?.navigate("categoriesScreen/${players.joinToString(",")}")
+                    if (players.size > 2) {
+                        onNavigateToCategoriesScreen()
                     } else {
                         showErrorSnackbar = true
                     }
@@ -106,10 +111,9 @@ fun StartScreen(
                     }
                 }
             ) {
-                Text("No players available.\nAdd players first.")
+                Text("Please add at least three players to begin.")
             }
         }
-
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -117,10 +121,10 @@ fun StartScreen(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            items(startViewModel.playerNames) { playerName ->
+            items(startViewModel.getAllPlayers()) {
                 PlayerCard(
-                    playerName = playerName,
-                    onRemoveItem = { removedPlayer -> startViewModel.removePlayer(removedPlayer) }
+                    player = it,
+                    onRemoveItem = {startViewModel.removePlayer(it)}
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             }
@@ -131,9 +135,12 @@ fun StartScreen(
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 private fun AddNewPlayer(
-    startViewModel: StartViewModel,
+    startViewModel: StartViewModel = hiltViewModel(),
     onDialogDismiss: () -> Unit = {}
 ) {
+    // will be used when we extract strings
+    val context = LocalContext.current
+    
     Dialog(
         onDismissRequest = onDialogDismiss,
         properties = DialogProperties(
@@ -141,8 +148,33 @@ private fun AddNewPlayer(
             dismissOnClickOutside = true
         )
     ) {
-        var playerName by rememberSaveable { mutableStateOf("") }
-        var showError by rememberSaveable { mutableStateOf(false) }
+        var playerName by rememberSaveable {
+            mutableStateOf("")
+        }
+
+        var nameErrorText by rememberSaveable {
+            mutableStateOf("")
+        }
+
+        var nameErrorState by rememberSaveable {
+            mutableStateOf(false)
+        }
+
+        fun valid(text: String): Pair<Boolean, String> {
+            if (text.isEmpty()) {
+                return Pair(true, "Player name cannot be empty.")
+            }
+            if (text.contains(Regex("[^a-zA-Z ]"))) {
+                return Pair(true, "Player name cannot contain numbers.")
+            }
+            return Pair(false, "")
+        }
+
+        fun validName(text: String) {
+            val (errorState, errorText) = valid(text)
+            nameErrorState = errorState
+            nameErrorText = errorText
+        }
 
         Column(
             Modifier
@@ -157,26 +189,25 @@ private fun AddNewPlayer(
                 value = playerName,
                 onValueChange = {
                     playerName = it
-                    showError = false
+                    validName(playerName) },
+                label = { Text(text = "Enter Player Name") },
+                trailingIcon = {
+                    if (nameErrorState)
+                        Icon(
+                            Icons.Filled.Warning,
+                            "error",
+                            tint = MaterialTheme.colorScheme.error
+                        )
                 },
-                label = { Text(text = "Enter Player Name here:") },
-                isError = showError
-            )
-
-            if (showError) {
-                Spacer(modifier = Modifier.height(8.dp))
-                if (playerName.trim().isEmpty()) {
-                    Text(
-                        text = "Player name cannot be empty",
-                        color = Color.Red
-                    )
-                } else {
-                    Text(
-                        text = "Player name cannot contain numbers",
-                        color = Color.Red
-                    )
+                supportingText = {
+                    if (nameErrorState) {
+                        Text(
+                            text = nameErrorText,
+                            color = MaterialTheme.colorScheme.error,
+                        )
+                    }
                 }
-            }
+            )
 
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -188,11 +219,19 @@ private fun AddNewPlayer(
             ) {
                 Button(
                     onClick = {
-                        if (playerName.trim().isNotEmpty() && !playerName.any { it.isDigit() }) {
-                            startViewModel.addPlayer(PlayerName(playerName))
+                        if (playerName.isNotEmpty() && !nameErrorState){
+                            startViewModel.addPlayer(
+                                Player(
+                                    playerName,
+                                    false
+                                )
+                            )
                             onDialogDismiss()
                         } else {
-                            showError = true
+                            if (playerName.isEmpty()) {
+                                nameErrorState = true
+                                nameErrorText = "Player name cannot be empty."
+                            }
                         }
                     },
                     modifier = Modifier
@@ -212,8 +251,8 @@ private fun AddNewPlayer(
 
 @Composable
 fun PlayerCard(
-    playerName: PlayerName,
-    onRemoveItem: (PlayerName) -> Unit = {}
+    player: Player,
+    onRemoveItem: () -> Unit = {},
 ) {
     Card(
         modifier = Modifier
@@ -236,7 +275,7 @@ fun PlayerCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = playerName.name,
+                    text = player.name,
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.weight(0.8f)
                 )
@@ -245,7 +284,7 @@ fun PlayerCard(
                     contentDescription = "Delete",
                     modifier = Modifier
                         .size(24.dp)
-                        .clickable { onRemoveItem(playerName) },
+                        .clickable { onRemoveItem },
                     tint = Color.Red
                 )
                 IconButton(

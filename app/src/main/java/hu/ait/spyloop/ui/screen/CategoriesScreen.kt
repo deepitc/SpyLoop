@@ -25,13 +25,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
+import androidx.navigation.NavType
+import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 
 @Composable
 fun CategoriesScreen(
     startViewModel: StartViewModel = hiltViewModel(),
-    csplayerNames: String,
-    navController: NavController? = null
+    onNavigateToGameScreen: (String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -43,12 +44,10 @@ fun CategoriesScreen(
                 .fillMaxWidth()
                 .padding(8.dp)
         ) {
-            items(startViewModel.categoriesList) { categoryName ->
+            items(startViewModel.categoriesList) {
                 CategoriesCard(
-                    categoryName = categoryName,
-                    onCategoryClick = {
-                        navController?.navigate("gameScreen/$categoryName/${csplayerNames}")
-                    }
+                    categoryName = it,
+                    onCategoryClick = onNavigateToGameScreen
                 )
                 Spacer(modifier = Modifier.height(16.dp))
             }
@@ -56,18 +55,17 @@ fun CategoriesScreen(
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoriesCard(
     categoryName: String,
-    onCategoryClick: () -> Unit = {}
+    onCategoryClick: (String) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onCategoryClick() }
             .padding(8.dp)
             .animateContentSize(
                 animationSpec = tween(
@@ -76,7 +74,10 @@ fun CategoriesCard(
                 )
             )
             .background(MaterialTheme.colorScheme.surface)
-            .shadow(4.dp, shape = RoundedCornerShape(16.dp))
+            .shadow(4.dp, shape = RoundedCornerShape(16.dp)),
+        onClick = {
+           onCategoryClick(categoryName)
+        }
     ) {
         Column(
             modifier = Modifier
