@@ -20,6 +20,7 @@ class StartViewModel @Inject constructor(
         fun resetOutOfLooper() {
             for (player in _players) {
                 player.outOfLoop = false
+                player.votes = 0
             }
         }
     }
