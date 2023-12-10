@@ -43,7 +43,7 @@ fun VotingScreen(
             val currentPlayer = players[currentPlayerIndex]
             Text(text = "Hi ${currentPlayer.name}!", fontSize = 24.sp)
             Text("Choose who you think is Out of the Loop")
-            checkBoxVoting(
+            CheckBoxVoting(
                 players,
                 currentPlayerIndex,
                 onVote = {
@@ -70,7 +70,7 @@ fun VotingScreen(
 }
 
 @Composable
-fun checkBoxVoting(
+fun CheckBoxVoting(
     players: List<Player>,
     currentPlayer: Int,
     onVote: () -> Unit
@@ -95,7 +95,7 @@ fun checkBoxVoting(
                             unselectedColor = Color.Gray
                         )
                     )
-                    Text("${player.name}", fontSize = 20.sp)
+                    Text(player.name, fontSize = 20.sp)
                 }
             }
         }
