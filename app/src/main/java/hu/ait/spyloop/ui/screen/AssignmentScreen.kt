@@ -20,7 +20,6 @@ import hu.ait.spyloop.data.Player
 fun AssignmentScreen(
     startViewModel: StartViewModel = hiltViewModel(),
     categoryName: String,
-    playerName: String,
     currentPlayerIndex: Int,
     onNavigateToConfirmationScreen: (String, Int) -> Unit){
     Column(
@@ -31,19 +30,11 @@ fun AssignmentScreen(
         val updatedPlayerIndex = currentPlayerIndex + 1
         val players = startViewModel.getAllPlayers()
 
-        fun getPlayer(players: List<Player>): Player? {
-            for (player in players)
-                if (player.name == playerName) {
-                    return player
-                }
-            return null
-        }
+        val player = players[currentPlayerIndex]
 
-        val player = getPlayer(players)
+        Text(text = "Hi ${player.name}!", fontSize = 24.sp)
 
-        Text(text = "Hi $playerName!", fontSize = 24.sp)
-
-        if (player?.outOfLoop!!){
+        if (player.outOfLoop){
             Text(text = "You are out of the loop.", fontSize = 20.sp)
         }
         else{
