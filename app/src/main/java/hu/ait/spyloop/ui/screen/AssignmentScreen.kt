@@ -17,7 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun AssignmentScreen(
     startViewModel: StartViewModel = hiltViewModel(),
-    categoryName: String,
+    secretWord: String,
     currentPlayerIndex: Int,
     onNavigateToConfirmationScreen: (String, Int) -> Unit
 ) {
@@ -36,12 +36,12 @@ fun AssignmentScreen(
         if (player.outOfLoop) {
             Text(text = "You are out of the loop.", fontSize = 20.sp)
         } else {
-            Text(text = "The secret word is: $categoryName", fontSize = 20.sp)
+            Text(text = "The secret word is: $secretWord", fontSize = 20.sp)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = { onNavigateToConfirmationScreen(categoryName, updatedPlayerIndex) }) {
+        Button(onClick = { onNavigateToConfirmationScreen(secretWord, updatedPlayerIndex) }) {
             Text(text = "Next player")
         }
     }

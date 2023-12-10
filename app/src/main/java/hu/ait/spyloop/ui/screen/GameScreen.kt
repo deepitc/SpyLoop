@@ -8,6 +8,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -20,12 +24,16 @@ import androidx.compose.material3.Text as Text1
 fun GameScreen(
     categoryName: String,
     onNavigateToConfirmationScreen: (String, Int) -> Unit,
+    categoriesViewModel: CategoriesViewModel = hiltViewModel(),
     startViewModel: StartViewModel = hiltViewModel()
 ) {
     val players = startViewModel.getAllPlayers()
 
+    var secretWord by rememberSaveable { mutableStateOf("") }
+
     LaunchedEffect(Unit) {
         startViewModel.pickOutOfLoop(players)
+        secretWord = categoriesViewModel.getWord(categoryName)
     }
 
     Column(
@@ -45,10 +53,8 @@ fun GameScreen(
                 .padding(8.dp)
         )
 
-
-        Button(onClick = { onNavigateToConfirmationScreen(categoryName, 0) }) {
+        Button(onClick = { onNavigateToConfirmationScreen(secretWord, 0) }) {
             Text1(text = "Get assignments!")
         }
     }
 }
-

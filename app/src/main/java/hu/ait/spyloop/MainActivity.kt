@@ -86,20 +86,19 @@ fun NavHost(
             )
         }
 
-        composable(
-            "confirmationscreen/{category}/{playerIndex}",
+        composable("confirmationscreen/{secretWord}/{playerIndex}",
             arguments = listOf(
-                navArgument("category") { type = NavType.StringType },
+                navArgument("secretWord") { type = NavType.StringType },
                 navArgument("playerIndex") { type = NavType.IntType },
             )
         ) {
-            val category = it.arguments?.getString("category")
+            val secretWord = it.arguments?.getString("secretWord")
             val playerIndex = it.arguments?.getInt("playerIndex")
             ConfirmationScreen(
-                categoryName = category!!,
+                secretWord = secretWord!!,
                 currentPlayerIndex = playerIndex!!,
-                onNavigateToAssignmentScreen = { category, playerIndex ->
-                    navController.navigate("assignmentscreen/$category/$playerIndex")
+                onNavigateToAssignmentScreen = { secretWord, playerIndex ->
+                    navController.navigate("assignmentscreen/$secretWord/$playerIndex")
                 },
                 onNavigateToPlayScreen = {
                     navController.navigate("playscreen")
@@ -108,22 +107,23 @@ fun NavHost(
         }
 
         composable(
-            "assignmentscreen/{category}/{playerIndex}",
+            "assignmentscreen/{secretWord}/{playerIndex}",
             arguments = listOf(
-                navArgument("category") { type = NavType.StringType },
+                navArgument("secretWord") { type = NavType.StringType },
                 navArgument("playerIndex") { type = NavType.IntType },
             )
         ) {
-            val category = it.arguments?.getString("category")
+            val secretWord = it.arguments?.getString("secretWord")
             val playerIndex = it.arguments?.getInt("playerIndex")
             AssignmentScreen(
-                categoryName = category!!,
+                secretWord = secretWord!!,
                 currentPlayerIndex = playerIndex!!,
-                onNavigateToConfirmationScreen = { category, playerIndex ->
-                    navController.navigate("confirmationscreen/$category/$playerIndex")
+                onNavigateToConfirmationScreen = { secretWord, playerIndex ->
+                    navController.navigate("confirmationscreen/$secretWord/$playerIndex")
                 }
             )
         }
+
 
         composable("playscreen") {
             PlayScreen(

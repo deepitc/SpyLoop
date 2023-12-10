@@ -18,7 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun ConfirmationScreen(
     startViewModel: StartViewModel = hiltViewModel(),
-    categoryName: String,
+    secretWord: String,
     onNavigateToAssignmentScreen: (String, Int) -> Unit,
     onNavigateToPlayScreen: () -> Unit,
     currentPlayerIndex: Int
@@ -42,7 +42,7 @@ fun ConfirmationScreen(
 
             Button(
                 onClick = {
-                    onNavigateToAssignmentScreen(categoryName, currentPlayerIndex)
+                    onNavigateToAssignmentScreen(secretWord, currentPlayerIndex)
                 }
             ) {
                 Text(text = "Igen!")
