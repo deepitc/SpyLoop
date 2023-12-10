@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -55,19 +56,16 @@ fun VotingScreen(
             visible = true
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Column() {
-            if (visible) {
-                Button(
-                    onClick = {
-                        onNavigateToResultScreen()
-                    }
-                ) {
-                    Text("Results")
+        if (visible) {
+            Text(text = "All players have voted")
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(
+                onClick = {
+                    onNavigateToResultScreen()
                 }
+            ) {
+                Text("See Results")
             }
-
         }
     }
 }
@@ -80,28 +78,31 @@ fun checkBoxVoting(
 ) {
     var selectedPlayerIndex by rememberSaveable { mutableStateOf<Int?>(null) }
 
-    Column(
-        modifier = Modifier
-            .padding(vertical = 8.dp)
-    ) {
+    Column {
         players.forEachIndexed { index, player ->
             if (currentPlayer != index) {
-                Row {
+                Row(
+                    modifier = Modifier
+                        .padding(vertical = 5.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     RadioButton(
                         selected = selectedPlayerIndex == index,
                         onClick = {
                             selectedPlayerIndex = index
                         },
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = Color.Magenta,
+                            selectedColor = Color.Blue,
                             unselectedColor = Color.Gray
                         )
                     )
-                    Text("${player.name}")
+                    Text("${player.name}", fontSize = 20.sp)
                 }
             }
         }
     }
+
+    Spacer(modifier = Modifier.height(16.dp))
 
     Button(onClick = {
 
@@ -109,6 +110,7 @@ fun checkBoxVoting(
             val checkedPlayer = players[selectedPlayerIndex!!]
             checkedPlayer.votes++
             onVote()
+            selectedPlayerIndex = null
         }
     }) {
         Text(text = "Vote")
