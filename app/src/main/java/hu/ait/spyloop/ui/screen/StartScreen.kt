@@ -6,6 +6,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,6 +30,9 @@ import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardDefaults.cardColors
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -47,11 +51,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
+import hu.ait.spyloop.R
 import hu.ait.spyloop.data.Player
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,12 +76,12 @@ fun StartScreen(
             .padding(16.dp)
     ) {
         Surface(
-            color = MaterialTheme.colorScheme.onBackground
+            color = MaterialTheme.colorScheme.primary
         ) {
             TopAppBar(
                 title = {
                     Text(
-                        text = "Spy Loop Game",
+                        text = stringResource(R.string.spy_loop_game),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
@@ -83,7 +89,7 @@ fun StartScreen(
                 },
                 actions = {
                     Text(
-                        text = "Clear All",
+                        text = stringResource(R.string.clear_all),
                         modifier = Modifier.clickable {
                             StartViewModel.clearAllPlayers()
                         }
@@ -123,7 +129,7 @@ fun StartScreen(
                     contentColor = MaterialTheme.colorScheme.onPrimary
                 )
             ) {
-                Text(text = "Choose Category")
+                Text(text = stringResource(R.string.choose_category))
             }
         }
 
@@ -132,11 +138,11 @@ fun StartScreen(
                 modifier = Modifier.padding(16.dp),
                 action = {
                     Button(onClick = { showErrorSnackbar = false }) {
-                        Text("OK")
+                        Text(stringResource(R.string.ok))
                     }
                 }
             ) {
-                Text("Please add at least three players to begin.")
+                Text(stringResource(R.string.please_add_at_least_three_players_to_begin))
             }
         }
 
@@ -187,10 +193,10 @@ private fun AddNewPlayer(
 
         fun valid(text: String): Pair<Boolean, String> {
             if (text.isEmpty()) {
-                return Pair(true, "Player name cannot be empty.")
+                return Pair(true, context.getString(R.string.player_name_cannot_be_empty))
             }
             if (text.contains(Regex("[^a-zA-Z ]"))) {
-                return Pair(true, "Player name cannot contain numbers.")
+                return Pair(true, context.getString(R.string.player_name_cannot_contain_numbers))
             }
             return Pair(false, "")
         }
@@ -204,19 +210,20 @@ private fun AddNewPlayer(
         Column(
             Modifier
                 .background(
-                    color = MaterialTheme.colorScheme.background,
+                    color = MaterialTheme.colorScheme.surface,
                     shape = MaterialTheme.shapes.medium
                 )
                 .padding(16.dp)
         ) {
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth(),
                 value = playerName,
                 onValueChange = {
                     playerName = it
                     validName(playerName)
                 },
-                label = { Text(text = "Enter Player Name") },
+                label = { Text(text = stringResource(R.string.enter_player_name)) },
                 trailingIcon = {
                     if (nameErrorState)
                         Icon(
@@ -257,7 +264,7 @@ private fun AddNewPlayer(
                         } else {
                             if (playerName.isEmpty()) {
                                 nameErrorState = true
-                                nameErrorText = "Player name cannot be empty."
+                                nameErrorText = context.getString(R.string.player_name_cannot_be_empty)
                             }
                         }
                     },
@@ -269,7 +276,7 @@ private fun AddNewPlayer(
                         contentColor = MaterialTheme.colorScheme.onPrimary
                     )
                 ) {
-                    Text(text = "Save")
+                    Text(text = stringResource(R.string.save))
                 }
             }
         }
@@ -285,9 +292,11 @@ fun PlayerCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(16.dp),
+        colors = cardColors(
+            containerColor = MaterialTheme.colorScheme.tertiary,
+        )
     ) {
-        var expanded by rememberSaveable { mutableStateOf(false) }
 
         Column(
             modifier = Modifier
@@ -313,28 +322,6 @@ fun PlayerCard(
                         .size(24.dp)
                         .clickable { onRemoveItem() },
                     tint = Color.Red
-                )
-                IconButton(
-                    onClick = { expanded = !expanded },
-                    modifier = Modifier.size(24.dp)
-                ) {
-                    Icon(
-                        imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
-                        contentDescription = if (expanded) "Less" else "More"
-                    )
-                }
-            }
-
-            AnimatedVisibility(
-                visible = expanded,
-                enter = fadeIn() + slideInVertically(),
-                exit = fadeOut() + slideOutVertically(),
-            ) {
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Press to Learn More",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }

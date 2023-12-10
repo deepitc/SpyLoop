@@ -1,7 +1,9 @@
 package hu.ait.spyloop.ui.screen
 
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hu.ait.spyloop.R
 import javax.inject.Inject
 
 @HiltViewModel

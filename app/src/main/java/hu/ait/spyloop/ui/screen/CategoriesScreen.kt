@@ -26,6 +26,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -74,7 +75,6 @@ fun CategoriesCard(
     categoryName: String,
     onCategoryClick: (String) -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
@@ -86,11 +86,13 @@ fun CategoriesCard(
                     easing = LinearOutSlowInEasing
                 )
             )
-            .background(MaterialTheme.colorScheme.surface)
             .shadow(4.dp, shape = RoundedCornerShape(16.dp)),
         onClick = {
             onCategoryClick(categoryName)
-        }
+        },
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.tertiary,
+        )
     ) {
         Column(
             modifier = Modifier
@@ -108,28 +110,6 @@ fun CategoriesCard(
                     text = categoryName,
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.weight(0.8f)
-                )
-                IconButton(
-                    onClick = { expanded = !expanded },
-                    modifier = Modifier.size(24.dp)
-                ) {
-                    Icon(
-                        imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
-                        contentDescription = if (expanded) "Less" else "More"
-                    )
-                }
-            }
-
-            AnimatedVisibility(
-                visible = expanded,
-                enter = fadeIn() + slideInVertically(),
-                exit = fadeOut() + slideOutVertically(),
-            ) {
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Learn More",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }

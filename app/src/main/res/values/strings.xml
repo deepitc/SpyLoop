@@ -1,3 +1,136 @@
 <resources>
     <string name="app_name">SpyLoop</string>
+    <string name="spy_loop_game">Spy Loop Game</string>
+    <string name="clear_all">Clear All</string>
+    <string name="choose_category">Choose Category</string>
+    <string name="ok">OK</string>
+    <string name="please_add_at_least_three_players_to_begin">Please add at least three players to begin.</string>
+    <string name="player_name_cannot_be_empty">Player name cannot be empty.</string>
+    <string name="player_name_cannot_contain_numbers">Player name cannot contain numbers.</string>
+    <string name="enter_player_name">Enter Player Name</string>
+    <string name="save">Save</string>
+    <string name="you_are_out_of_the_loop">You are out of the loop.</string>
+    <string name="the_secret_word_is">The secret word is: %1$s</string>
+    <string name="next_player">Next player</string>
+    <string name="you_ve_picked">You\'ve picked: </string>
+    <string name="get_assignments">Get assignments!</string>
+    <string name="hi">Hi %1$s!</string>
+    <string name="done_playing">Done playing?</string>
+    <string name="vote">Vote</string>
+    <string name="is_this">Is this %1$s?</string>
+
+    <string-array name="city_locations">
+        <item>Beach</item>
+        <item>Park</item>
+        <item>Library</item>
+        <item>Airport</item>
+        <item>Restaurant</item>
+        <item>School</item>
+        <item>Hospital</item>
+        <item>Museum</item>
+        <item>Gym</item>
+        <item>Movie Theater</item>
+        <item>Zoo</item>
+        <item>Grocery Store</item>
+        <item>Stadium</item>
+        <item>Mall</item>
+        <item>Police Station</item>
+        <item>Farm</item>
+        <item>Desert</item>
+        <item>Mountain</item>
+        <item>Space Station</item>
+        <item>Amusement Park</item>
+    </string-array>
+
+    <string-array name="household_items">
+        <item>Refrigerator</item>
+        <item>Microwave</item>
+        <item>Vacuum Cleaner</item>
+        <item>Blender</item>
+        <item>Coffee Maker</item>
+        <item>Toaster</item>
+        <item>Dishwasher</item>
+        <item>Washing Machine</item>
+        <item>Couch</item>
+        <item>Dining Table</item>
+        <item>Bedside Lamp</item>
+        <item>Clock</item>
+        <item>Mirror</item>
+        <item>Bookshelf</item>
+        <item>Sofa</item>
+        <item>Cutting Board</item>
+        <item>Trash Can</item>
+        <item>Iron</item>
+        <item>Shower Curtain</item>
+        <item>Tissue Box</item>
+    </string-array>
+
+    <string-array name="hobbies">
+        <item>Painting</item>
+        <item>Gardening</item>
+        <item>Photography</item>
+        <item>Reading</item>
+        <item>Hiking</item>
+        <item>Cooking</item>
+        <item>Fishing</item>
+        <item>Dancing</item>
+        <item>Gaming</item>
+        <item>Traveling</item>
+        <item>Yoga</item>
+        <item>Writing</item>
+        <item>Playing Instruments</item>
+        <item>Cycling</item>
+        <item>Drawing</item>
+        <item>Sculpting</item>
+        <item>Bird Watching</item>
+        <item>Pottery</item>
+        <item>Collecting</item>
+        <item>Astronomy</item>
+    </string-array>
+
+    <string-array name="professions">
+        <item>Doctor</item>
+        <item>Teacher</item>
+        <item>Firefighter</item>
+        <item>Chef</item>
+        <item>Pilot</item>
+        <item>Artist</item>
+        <item>Engineer</item>
+        <item>Police Officer</item>
+        <item>Scientist</item>
+        <item>Athlete</item>
+        <item>Musician</item>
+        <item>Actor</item>
+        <item>Nurse</item>
+        <item>Farmer</item>
+        <item>Astronaut</item>
+        <item>Lawyer</item>
+        <item>Journalist</item>
+        <item>Carpenter</item>
+        <item>Veterinarian</item>
+        <item>Electrician</item>
+    </string-array>
+
+    <string-array name="animals">
+        <item>Elephant</item>
+        <item>Tiger</item>
+        <item>Penguin</item>
+        <item>Giraffe</item>
+        <item>Dolphin</item>
+        <item>Koala</item>
+        <item>Cheetah</item>
+        <item>Octopus</item>
+        <item>Kangaroo</item>
+        <item>Polar Bear</item>
+        <item>Peacock</item>
+        <item>Chimpanzee</item>
+        <item>Panda</item>
+        <item>Alligator</item>
+        <item>Gorilla</item>
+        <item>Ostrich</item>
+        <item>Flamingo</item>
+        <item>Hedgehog</item>
+        <item>Raccoon</item>
+        <item>Armadillo</item>
+    </string-array>
 </resources>
