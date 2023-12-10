@@ -34,13 +34,15 @@ fun ResultScreen(
         val maxVotes = playerVotes.maxOrNull()
 
         if (maxVotes != null) {
-            val winners = players.filter { it.votes == maxVotes }
+            val outOfLooper = players.filter { it.votes == maxVotes }
 
-            if (winners.size == 1 && winners[0].outOfLoop) {
-                Text(text = "You win!")
+            if (outOfLooper.size == 1 && outOfLooper[0].outOfLoop) {
+                Text(text = "You found the player Out of the Loop!")
             } else {
-                Text(text = "You lose!")
+                Text(text = "The player Out of the Loop wins!")
             }
+
+            Text(text = "${outOfLooper[0].name} was Out of the Loop!")
         }
     }
 }
