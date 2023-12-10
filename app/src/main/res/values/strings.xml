@@ -18,6 +18,16 @@
     <string name="done_playing">Done playing?</string>
     <string name="vote">Vote</string>
     <string name="is_this">Is this %1$s?</string>
+    <string name="igen">Igen!</string>
+    <string name="all_roles_assigned">All Roles Assigned</string>
+    <string name="let_s_play">Let\'s play!</string>
+    <string name="you_found_the_player_out_of_the_loop">You found the player Out of the Loop!</string>
+    <string name="the_player_out_of_the_loop_wins">The player Out of the Loop wins!</string>
+    <string name="was_out_of_the_loop">%1$s was Out of the Loop!</string>
+    <string name="restart_game">Restart Game</string>
+    <string name="choose_who_you_think_is_out_of_the_loop">Who is Out of the Loop?</string>
+    <string name="all_players_have_voted">All players have voted</string>
+    <string name="see_results">See Results</string>
 
     <string-array name="city_locations">
         <item>Beach</item>

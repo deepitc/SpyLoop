@@ -1,5 +1,6 @@
 package hu.ait.spyloop.ui.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,7 +8,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
@@ -19,9 +22,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import hu.ait.spyloop.R
 import hu.ait.spyloop.data.Player
 
 @Composable
@@ -41,8 +47,29 @@ fun VotingScreen(
 
         if (currentPlayerIndex < players.size) {
             val currentPlayer = players[currentPlayerIndex]
-            Text(text = "Hi ${currentPlayer.name}!", fontSize = 24.sp)
-            Text("Choose who you think is Out of the Loop")
+            Text(
+                text = stringResource(R.string.hi, currentPlayer.name),
+                fontSize = 24.sp,
+                color = Color.White,
+                modifier = Modifier
+                    .background(
+                        color = MaterialTheme.colorScheme.tertiary,
+                        shape = RoundedCornerShape(20.dp)
+                    )
+                    .padding(8.dp)
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = stringResource(R.string.choose_who_you_think_is_out_of_the_loop),
+                modifier = Modifier
+                    .background(
+                        color = MaterialTheme.colorScheme.surface,
+                        shape = RoundedCornerShape(20.dp)
+                    )
+                    .padding(8.dp)
+            )
             CheckBoxVoting(
                 players,
                 currentPlayerIndex,
@@ -56,14 +83,24 @@ fun VotingScreen(
         }
 
         if (visible) {
-            Text(text = "All players have voted")
+            Text(
+                text = stringResource(R.string.all_players_have_voted),
+                fontSize = 30.sp,
+                color = Color.White,
+                modifier = Modifier
+                    .background(
+                        color = MaterialTheme.colorScheme.tertiary,
+                        shape = RoundedCornerShape(20.dp)
+                    )
+                    .padding(8.dp)
+            )
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
                     onNavigateToResultScreen()
                 }
             ) {
-                Text("See Results")
+                Text(stringResource(R.string.see_results))
             }
         }
     }
@@ -81,8 +118,6 @@ fun CheckBoxVoting(
         players.forEachIndexed { index, player ->
             if (currentPlayer != index) {
                 Row(
-                    modifier = Modifier
-                        .padding(vertical = 5.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     RadioButton(
@@ -91,8 +126,8 @@ fun CheckBoxVoting(
                             selectedPlayerIndex = index
                         },
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = Color.Blue,
-                            unselectedColor = Color.Gray
+                            selectedColor = MaterialTheme.colorScheme.secondary,
+                            unselectedColor = MaterialTheme.colorScheme.tertiary
                         )
                     )
                     Text(player.name, fontSize = 20.sp)
@@ -112,7 +147,7 @@ fun CheckBoxVoting(
             selectedPlayerIndex = null
         }
     }) {
-        Text(text = "Vote")
+        Text(text = stringResource(R.string.vote))
     }
 }
 

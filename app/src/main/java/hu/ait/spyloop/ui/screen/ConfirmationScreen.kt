@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -40,6 +41,7 @@ fun ConfirmationScreen(
             Text(
                 text = stringResource(R.string.is_this, currentPlayer.name),
                 fontSize = 24.sp,
+                color = Color.White,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .background(
@@ -56,19 +58,26 @@ fun ConfirmationScreen(
                     onNavigateToAssignmentScreen(secretWord, currentPlayerIndex)
                 }
             ) {
-                Text(text = "Igen!")
+                Text(text = stringResource(R.string.igen))
             }
         } else {
             Text(
-                text = "All Roles Assigned",
+                text = stringResource(R.string.all_roles_assigned),
                 fontSize = 24.sp,
-                modifier = Modifier.padding(8.dp)
+                color = Color.White,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .background(
+                        color = MaterialTheme.colorScheme.tertiary,
+                        shape = RoundedCornerShape(20.dp)
+                    )
+                    .padding(8.dp)
             )
 
             Button(
                 onClick = { onNavigateToPlayScreen() }
             ) {
-                Text(text = "Let's play!")
+                Text(text = stringResource(R.string.let_s_play))
             }
         }
     }

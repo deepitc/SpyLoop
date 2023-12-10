@@ -90,12 +90,16 @@ fun StartScreen(
                 actions = {
                     Text(
                         text = stringResource(R.string.clear_all),
+                        color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.clickable {
                             StartViewModel.clearAllPlayers()
                         }
                     )
                     IconButton(onClick = { showAddPlayerDialog = true }) {
-                        Icon(Icons.Filled.AddCircle, null)
+                        Icon(
+                            Icons.Filled.AddCircle,
+                            null,
+                            tint = MaterialTheme.colorScheme.onSurface)
                     }
                 }
             )
