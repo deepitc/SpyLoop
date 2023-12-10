@@ -142,7 +142,10 @@ fun NavHost(
         }
 
         composable("resultscreen") {
-            ResultScreen()
+            ResultScreen(
+                onNavigateToStartScreen = {
+                    navController.navigate("startscreen")
+                })
         }
     }
 }

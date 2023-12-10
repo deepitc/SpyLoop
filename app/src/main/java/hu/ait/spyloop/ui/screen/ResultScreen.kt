@@ -2,6 +2,7 @@ package hu.ait.spyloop.ui.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -13,7 +14,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun ResultScreen(
-    startViewModel: StartViewModel = hiltViewModel()
+    startViewModel: StartViewModel = hiltViewModel(),
+    onNavigateToStartScreen: () -> Unit
 ) {
     val players = startViewModel.getAllPlayers()
 
@@ -43,6 +45,12 @@ fun ResultScreen(
             }
 
             Text(text = "${outOfLooper[0].name} was Out of the Loop!")
+        }
+
+        Button(onClick = {
+            onNavigateToStartScreen()
+        }) {
+            Text(text = "Restart Game")
         }
     }
 }
