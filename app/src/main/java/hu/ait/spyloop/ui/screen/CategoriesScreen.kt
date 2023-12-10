@@ -1,7 +1,6 @@
 package hu.ait.spyloop.ui.screen
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -10,7 +9,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -25,9 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavType
-import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 
 @Composable
 fun CategoriesScreen(
@@ -76,7 +71,7 @@ fun CategoriesCard(
             .background(MaterialTheme.colorScheme.surface)
             .shadow(4.dp, shape = RoundedCornerShape(16.dp)),
         onClick = {
-           onCategoryClick(categoryName)
+            onCategoryClick(categoryName)
         }
     ) {
         Column(

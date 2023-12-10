@@ -37,7 +37,7 @@ fun StartScreen(
     startViewModel: StartViewModel = hiltViewModel(),
     onNavigateToCategoriesScreen: () -> Unit,
 
-) {
+    ) {
     var showAddPlayerDialog by rememberSaveable { mutableStateOf(false) }
     var showErrorSnackbar by rememberSaveable { mutableStateOf(false) }
 
@@ -120,7 +120,7 @@ fun StartScreen(
             items(startViewModel.getAllPlayers()) {
                 PlayerCard(
                     player = it,
-                    onRemoveItem = {startViewModel.removePlayer(it)}
+                    onRemoveItem = { startViewModel.removePlayer(it) }
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             }
@@ -136,7 +136,7 @@ private fun AddNewPlayer(
 ) {
     // will be used when we extract strings
     val context = LocalContext.current
-    
+
     Dialog(
         onDismissRequest = onDialogDismiss,
         properties = DialogProperties(
@@ -185,7 +185,8 @@ private fun AddNewPlayer(
                 value = playerName,
                 onValueChange = {
                     playerName = it
-                    validName(playerName) },
+                    validName(playerName)
+                },
                 label = { Text(text = "Enter Player Name") },
                 trailingIcon = {
                     if (nameErrorState)
@@ -215,7 +216,7 @@ private fun AddNewPlayer(
             ) {
                 Button(
                     onClick = {
-                        if (playerName.isNotEmpty() && !nameErrorState){
+                        if (playerName.isNotEmpty() && !nameErrorState) {
                             startViewModel.addPlayer(
                                 Player(
                                     playerName,
