@@ -288,7 +288,7 @@ fun PlayerCard(
                     contentDescription = "Delete",
                     modifier = Modifier
                         .size(24.dp)
-                        .clickable { onRemoveItem },
+                        .clickable { onRemoveItem() },
                     tint = Color.Red
                 )
                 IconButton(
