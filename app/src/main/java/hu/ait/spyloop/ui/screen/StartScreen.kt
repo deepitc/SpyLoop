@@ -59,6 +59,12 @@ fun StartScreen(
                     )
                 },
                 actions = {
+                    Text(
+                        text = "Clear All",
+                        modifier = Modifier.clickable {
+                            StartViewModel.clearAllPlayers()
+                        }
+                    )
                     IconButton(onClick = { showAddPlayerDialog = true }) {
                         Icon(Icons.Filled.AddCircle, null)
                     }
@@ -95,6 +101,27 @@ fun StartScreen(
                 )
             ) {
                 Text(text = "Choose Category")
+            }
+
+            Button(
+                onClick = {
+                    val players = startViewModel.getAllPlayers()
+
+                    if (players.size > 2) {
+                        onNavigateToCategoriesScreen()
+                    } else {
+                        showErrorSnackbar = true
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                shape = MaterialTheme.shapes.medium,
+                colors = ButtonDefaults.buttonColors(
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                )
+            ) {
+                Text(text = "Vote")
             }
         }
 
@@ -220,7 +247,8 @@ private fun AddNewPlayer(
                             startViewModel.addPlayer(
                                 Player(
                                     playerName,
-                                    false
+                                    false,
+                                    0
                                 )
                             )
                             onDialogDismiss()

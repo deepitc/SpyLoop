@@ -15,6 +15,10 @@ class StartViewModel @Inject constructor(
 
     companion object {
         var _players = mutableStateListOf<Player>()
+
+        fun clearAllPlayers() {
+            _players.clear()
+        }
     }
 
     fun getAllCategories(): List<String>{
