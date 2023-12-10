@@ -80,21 +80,24 @@ fun NavHost(
             GameScreen(
                 categoryName = category!!,
                 onNavigateToConfirmationScreen = {
-                        category -> navController.navigate("confirmationscreen/$category")
+                        category, playerIndex -> navController.navigate("confirmationscreen/$category/$playerIndex")
                 }
             )
         }
 
-        composable("confirmationscreen/{category}",
+        composable("confirmationscreen/{category}/{playerIndex}",
             arguments = listOf(
                 navArgument("category"){type = NavType.StringType},
+                navArgument("playerIndex"){type = NavType.IntType},
             )
         ) {
             val category = it.arguments?.getString("category")
+            val playerIndex = it.arguments?.getInt("playerIndex")
             ConfirmationScreen(
                 categoryName = category!!,
+                currentPlayerIndex = playerIndex!!,
                 onNavigateToAssignmentScreen = {
-                        category, playerName -> navController.navigate("assignmentscreen/$category/$playerName")
+                        category, playerName, playerIndex -> navController.navigate("assignmentscreen/$category/$playerName/$playerIndex")
                 },
                 onNavigateToPlayScreen = {
                     navController.navigate("playscreen")
@@ -102,19 +105,22 @@ fun NavHost(
             )
         }
 
-        composable("assignmentscreen/{category}/{playerName}",
+        composable("assignmentscreen/{category}/{playerName}/{playerIndex}",
             arguments = listOf(
                 navArgument("category"){type = NavType.StringType},
                 navArgument("playerName"){type = NavType.StringType},
+                navArgument("playerIndex"){type = NavType.IntType},
             )
         ) {
             val category = it.arguments?.getString("category")
             val playerName = it.arguments?.getString("playerName")
+            val playerIndex = it.arguments?.getInt("playerIndex")
             AssignmentScreen(
                 categoryName = category!!,
                 playerName = playerName!!,
+                currentPlayerIndex = playerIndex!!,
                 onNavigateToConfirmationScreen = {
-                        category -> navController.navigate("confirmationscreen/$category")
+                        category, playerIndex -> navController.navigate("confirmationscreen/$category/$playerIndex")
                 }
             )
         }

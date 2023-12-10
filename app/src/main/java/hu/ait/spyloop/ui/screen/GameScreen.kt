@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun GameScreen(
     categoryName: String,
-    onNavigateToConfirmationScreen: (String) -> Unit
+    onNavigateToConfirmationScreen: (String, Int) -> Unit
 ) {
 
     Column(
@@ -32,7 +32,7 @@ fun GameScreen(
                 .padding(8.dp)
         )
 
-        Button(onClick = { onNavigateToConfirmationScreen(categoryName) }) {
+        Button(onClick = { onNavigateToConfirmationScreen(categoryName, 0) }) {
             Text(text = "Get assignments!")
         }
     }

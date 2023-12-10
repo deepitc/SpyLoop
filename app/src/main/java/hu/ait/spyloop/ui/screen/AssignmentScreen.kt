@@ -18,17 +18,20 @@ import androidx.compose.ui.unit.sp
 fun AssignmentScreen(
     categoryName: String,
     playerName: String,
-    onNavigateToConfirmationScreen: (String) -> Unit) {
+    currentPlayerIndex: Int,
+    onNavigateToConfirmationScreen: (String, Int) -> Unit){
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        val updatedPlayerIndex = currentPlayerIndex + 1
+
         Text(text = "Hi $playerName!", fontSize = 24.sp, textAlign = TextAlign.Center)
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = {onNavigateToConfirmationScreen(categoryName)}) {
+        Button(onClick = {onNavigateToConfirmationScreen(categoryName, updatedPlayerIndex)}) {
             Text(text = "Next player")
         }
     }

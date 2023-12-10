@@ -39,9 +39,9 @@ fun CategoriesScreen(
                 .fillMaxWidth()
                 .padding(8.dp)
         ) {
-            items(startViewModel.getAllCategories()) { category ->
+            items(startViewModel.getAllCategories()) {
                 CategoriesCard(
-                    categoryName = category,
+                    categoryName = it,
                     onCategoryClick = onNavigateToGameScreen
                 )
                 Spacer(modifier = Modifier.height(16.dp))

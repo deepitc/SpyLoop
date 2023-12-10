@@ -25,18 +25,19 @@ import hu.ait.spyloop.data.Player
 fun ConfirmationScreen(
     startViewModel: StartViewModel = hiltViewModel(),
     categoryName: String,
-    onNavigateToAssignmentScreen: (String, String) -> Unit,
+    onNavigateToAssignmentScreen: (String, String, Int) -> Unit,
     onNavigateToPlayScreen: () -> Unit,
+    currentPlayerIndex: Int
 ) {
     val players = startViewModel.getAllPlayers()
-    var currentPlayerIndex = remember { mutableIntStateOf(0) }
+    // var currentPlayerIndex = remember { mutableIntStateOf(0) }
 
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (currentPlayerIndex.value < players.size) {
-            val currentPlayer = players[currentPlayerIndex.value]
+        if (currentPlayerIndex < players.size) {
+            val currentPlayer = players[currentPlayerIndex]
 
             Text(
                 text = "Is this ${currentPlayer.name}?",
@@ -48,8 +49,8 @@ fun ConfirmationScreen(
 
             Button(
                 onClick = {
-                    currentPlayerIndex.value += 1
-                    onNavigateToAssignmentScreen(categoryName, currentPlayer.name)
+                    // currentPlayerIndex.value += 1
+                    onNavigateToAssignmentScreen(categoryName, currentPlayer.name, currentPlayerIndex)
                 }
             ) {
                 Text(text = "Igen!")
