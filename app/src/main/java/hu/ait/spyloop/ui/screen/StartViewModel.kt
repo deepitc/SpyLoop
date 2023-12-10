@@ -8,12 +8,16 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.ait.spyloop.data.Player
 import javax.inject.Inject
+import javax.inject.Singleton
 
 @HiltViewModel
 class StartViewModel @Inject constructor(
 ) : ViewModel() {
     val categoriesList: List<String> = listOf("Locations", "Food", "Household Items")
-    private var _players = mutableStateListOf<Player>()
+
+    companion object {
+        var _players = mutableStateListOf<Player>()
+    }
 
     fun getAllPlayers(): List<Player> {
         return _players

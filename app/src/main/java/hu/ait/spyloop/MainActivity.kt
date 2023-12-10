@@ -14,8 +14,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
+import hu.ait.spyloop.data.Player
+import hu.ait.spyloop.ui.screen.AssignmentScreen
 import hu.ait.spyloop.ui.screen.CategoriesScreen
+import hu.ait.spyloop.ui.screen.ConfirmationScreen
 import hu.ait.spyloop.ui.screen.GameScreen
+import hu.ait.spyloop.ui.screen.PlayScreen
 import hu.ait.spyloop.ui.screen.SplashScreen
 import hu.ait.spyloop.ui.screen.StartScreen
 import hu.ait.spyloop.ui.theme.SpyLoopTheme
@@ -73,7 +77,52 @@ fun NavHost (
         ) {
             val category = it.arguments?.getString("category")
             GameScreen(
-                categoryName = category!!
+                categoryName = category!!,
+                onNavigateToConfirmationScreen = {
+                        category -> navController.navigate("confirmationscreen/$category")
+                }
+            )
+        }
+
+        composable("confirmationscreen/{category}",
+            arguments = listOf(
+                navArgument("category"){type = NavType.StringType},
+            )
+        ) {
+            val category = it.arguments?.getString("category")
+            ConfirmationScreen(
+                categoryName = category!!,
+                onNavigateToAssignmentScreen = {
+                        category, playerName -> navController.navigate("assignmentscreen/$category/$playerName")
+                },
+                onNavigateToPlayScreen = {
+                    navController.navigate("playscreen")
+                }
+            )
+        }
+
+        composable("assignmentscreen/{category}/{playerName}",
+            arguments = listOf(
+                navArgument("category"){type = NavType.StringType},
+                navArgument("playerName"){type = NavType.StringType},
+            )
+        ) {
+            val category = it.arguments?.getString("category")
+            val playerName = it.arguments?.getString("playerName")
+            AssignmentScreen(
+                categoryName = category!!,
+                playerName = playerName!!,
+                onNavigateToConfirmationScreen = {
+                        category -> navController.navigate("confirmationscreen/$category")
+                }
+            )
+        }
+
+        composable("playscreen"){
+            PlayScreen(
+                onNavigateToVotingScreen = {
+                    navController.navigate("votingscreen")
+                }
             )
         }
     }

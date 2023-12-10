@@ -15,17 +15,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun AssignmentScreen(onNavigateToNextPlayer: () -> Unit) {
+fun AssignmentScreen(
+    categoryName: String,
+    playerName: String,
+    onNavigateToConfirmationScreen: (String) -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Hi!", fontSize = 24.sp, textAlign = TextAlign.Center)
+        Text(text = "Hi $playerName!", fontSize = 24.sp, textAlign = TextAlign.Center)
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = onNavigateToNextPlayer) {
+        Button(onClick = {onNavigateToConfirmationScreen(categoryName)}) {
             Text(text = "Next player")
         }
     }
