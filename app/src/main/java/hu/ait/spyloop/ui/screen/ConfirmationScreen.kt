@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -56,7 +57,9 @@ fun ConfirmationScreen(
                 Text(text = "Igen!")
             }
         } else {
-            Text(text = "All roles assigned.")
+            Text( text = "All Roles Assigned",
+                fontSize = 24.sp,
+                modifier = Modifier.padding(8.dp))
 
             Button(
                 onClick = { onNavigateToPlayScreen() }

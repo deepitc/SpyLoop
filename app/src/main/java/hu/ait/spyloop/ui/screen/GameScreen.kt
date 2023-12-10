@@ -8,12 +8,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.compose.material3.Text as Text1
 
 @Composable
 fun GameScreen(
     categoryName: String,
-    onNavigateToConfirmationScreen: (String, Int) -> Unit
+    onNavigateToConfirmationScreen: (String, Int) -> Unit,
+    startViewModel: StartViewModel = hiltViewModel()
 ) {
+    val players = startViewModel.getAllPlayers()
+
+    LaunchedEffect(Unit) {
+        startViewModel.pickOutOfLoop(players)
+    }
 
     Column(
         modifier = Modifier
@@ -23,7 +31,7 @@ fun GameScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(
+        Text1(
             text = "You've picked $categoryName",
             fontSize = 24.sp,
             textAlign = TextAlign.Center,
@@ -32,8 +40,9 @@ fun GameScreen(
                 .padding(8.dp)
         )
 
+
         Button(onClick = { onNavigateToConfirmationScreen(categoryName, 0) }) {
-            Text(text = "Get assignments!")
+            Text1(text = "Get assignments!")
         }
     }
 }

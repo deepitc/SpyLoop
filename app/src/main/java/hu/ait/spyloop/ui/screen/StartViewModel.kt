@@ -33,10 +33,9 @@ class StartViewModel @Inject constructor(
         _players.add(player)
     }
 
-    fun pickOutOfLoop(players: List<Player>): Player {
+    fun pickOutOfLoop(players: List<Player>) {
         val outOfLoop = players.random()
         outOfLoop.outOfLoop = true
-        return outOfLoop
     }
 
     fun removePlayer(player: Player) {
