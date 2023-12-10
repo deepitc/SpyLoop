@@ -14,7 +14,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
-import hu.ait.spyloop.data.Player
 import hu.ait.spyloop.ui.screen.AssignmentScreen
 import hu.ait.spyloop.ui.screen.CategoriesScreen
 import hu.ait.spyloop.ui.screen.ConfirmationScreen
@@ -81,16 +80,17 @@ fun NavHost(
             val category = it.arguments?.getString("category")
             GameScreen(
                 categoryName = category!!,
-                onNavigateToConfirmationScreen = {
-                        category, playerIndex -> navController.navigate("confirmationscreen/$category/$playerIndex")
+                onNavigateToConfirmationScreen = { category, playerIndex ->
+                    navController.navigate("confirmationscreen/$category/$playerIndex")
                 }
             )
         }
 
-        composable("confirmationscreen/{category}/{playerIndex}",
+        composable(
+            "confirmationscreen/{category}/{playerIndex}",
             arguments = listOf(
-                navArgument("category"){type = NavType.StringType},
-                navArgument("playerIndex"){type = NavType.IntType},
+                navArgument("category") { type = NavType.StringType },
+                navArgument("playerIndex") { type = NavType.IntType },
             )
         ) {
             val category = it.arguments?.getString("category")
@@ -98,8 +98,8 @@ fun NavHost(
             ConfirmationScreen(
                 categoryName = category!!,
                 currentPlayerIndex = playerIndex!!,
-                onNavigateToAssignmentScreen = {
-                        category, playerIndex -> navController.navigate("assignmentscreen/$category/$playerIndex")
+                onNavigateToAssignmentScreen = { category, playerIndex ->
+                    navController.navigate("assignmentscreen/$category/$playerIndex")
                 },
                 onNavigateToPlayScreen = {
                     navController.navigate("playscreen")
@@ -107,10 +107,11 @@ fun NavHost(
             )
         }
 
-        composable("assignmentscreen/{category}/{playerIndex}",
+        composable(
+            "assignmentscreen/{category}/{playerIndex}",
             arguments = listOf(
-                navArgument("category"){type = NavType.StringType},
-                navArgument("playerIndex"){type = NavType.IntType},
+                navArgument("category") { type = NavType.StringType },
+                navArgument("playerIndex") { type = NavType.IntType },
             )
         ) {
             val category = it.arguments?.getString("category")
@@ -118,8 +119,8 @@ fun NavHost(
             AssignmentScreen(
                 categoryName = category!!,
                 currentPlayerIndex = playerIndex!!,
-                onNavigateToConfirmationScreen = {
-                        category, playerIndex -> navController.navigate("confirmationscreen/$category/$playerIndex")
+                onNavigateToConfirmationScreen = { category, playerIndex ->
+                    navController.navigate("confirmationscreen/$category/$playerIndex")
                 }
             )
         }

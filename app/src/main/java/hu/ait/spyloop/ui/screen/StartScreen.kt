@@ -37,7 +37,7 @@ fun StartScreen(
     startViewModel: StartViewModel = hiltViewModel(),
     onNavigateToCategoriesScreen: () -> Unit
 
-    ) {
+) {
     var showAddPlayerDialog by rememberSaveable { mutableStateOf(false) }
     var showErrorSnackbar by rememberSaveable { mutableStateOf(false) }
 

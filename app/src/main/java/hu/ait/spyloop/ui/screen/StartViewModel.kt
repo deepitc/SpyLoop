@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.ait.spyloop.data.Player
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @HiltViewModel
 class StartViewModel @Inject constructor(
@@ -21,7 +20,7 @@ class StartViewModel @Inject constructor(
         }
     }
 
-    fun getAllCategories(): List<String>{
+    fun getAllCategories(): List<String> {
         return categoriesList
     }
 
