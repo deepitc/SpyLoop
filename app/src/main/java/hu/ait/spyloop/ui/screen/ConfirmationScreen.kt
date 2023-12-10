@@ -9,6 +9,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -25,10 +26,10 @@ fun ConfirmationScreen(
     startViewModel: StartViewModel = hiltViewModel(),
     categoryName: String,
     onNavigateToAssignmentScreen: (String, String) -> Unit,
-    onNavigateToPlayScreen: () -> Unit
+    onNavigateToPlayScreen: () -> Unit,
 ) {
     val players = startViewModel.getAllPlayers()
-    val currentPlayerIndex = remember { mutableStateOf(0) }
+    var currentPlayerIndex = remember { mutableIntStateOf(0) }
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -47,8 +48,8 @@ fun ConfirmationScreen(
 
             Button(
                 onClick = {
-                    onNavigateToAssignmentScreen(categoryName, currentPlayer.name)
                     currentPlayerIndex.value += 1
+                    onNavigateToAssignmentScreen(categoryName, currentPlayer.name)
                 }
             ) {
                 Text(text = "Igen!")

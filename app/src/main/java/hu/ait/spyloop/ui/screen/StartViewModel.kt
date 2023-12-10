@@ -12,8 +12,13 @@ class StartViewModel @Inject constructor(
 ) : ViewModel() {
     val categoriesList: List<String> = listOf("Locations", "Food", "Household Items")
 
+
     companion object {
         var _players = mutableStateListOf<Player>()
+    }
+
+    fun getAllCategories(): List<String>{
+        return categoriesList
     }
 
     fun getAllPlayers(): List<Player> {
