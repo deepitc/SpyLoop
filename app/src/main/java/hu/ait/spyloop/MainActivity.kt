@@ -86,7 +86,8 @@ fun NavHost(
             )
         }
 
-        composable("confirmationscreen/{secretWord}/{playerIndex}",
+        composable(
+            "confirmationscreen/{secretWord}/{playerIndex}",
             arguments = listOf(
                 navArgument("secretWord") { type = NavType.StringType },
                 navArgument("playerIndex") { type = NavType.IntType },

@@ -11,6 +11,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.hilt.navigation.compose.hiltViewModel
+import hu.ait.spyloop.ui.screen.StartViewModel.Companion.resetOutOfLooper
 
 @Composable
 fun ResultScreen(
@@ -48,6 +49,7 @@ fun ResultScreen(
         }
 
         Button(onClick = {
+            resetOutOfLooper()
             onNavigateToStartScreen()
         }) {
             Text(text = "Restart Game")

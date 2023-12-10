@@ -9,8 +9,6 @@ import javax.inject.Inject
 @HiltViewModel
 class StartViewModel @Inject constructor(
 ) : ViewModel() {
-    val categoriesList: List<String> = listOf("Locations", "Food", "Household Items")
-
 
     companion object {
         var _players = mutableStateListOf<Player>()
@@ -18,11 +16,14 @@ class StartViewModel @Inject constructor(
         fun clearAllPlayers() {
             _players.clear()
         }
+
+        fun resetOutOfLooper() {
+            for (player in _players) {
+                player.outOfLoop = false
+            }
+        }
     }
 
-    fun getAllCategories(): List<String> {
-        return categoriesList
-    }
 
     fun getAllPlayers(): List<Player> {
         return _players
