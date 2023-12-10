@@ -17,7 +17,6 @@ class CategoriesViewModel @Inject constructor(
         "Farm", "Desert", "Mountain", "Space Station", "Amusement Park"
     )
 
-
     val householdItemsList: List<String> = listOf(
         "Refrigerator", "Microwave", "Vacuum Cleaner", "Blender", "Coffee Maker",
         "Toaster", "Dishwasher", "Washing Machine", "Couch", "Dining Table",
