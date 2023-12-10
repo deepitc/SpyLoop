@@ -35,7 +35,7 @@ import hu.ait.spyloop.data.Player
 @Composable
 fun StartScreen(
     startViewModel: StartViewModel = hiltViewModel(),
-    onNavigateToCategoriesScreen: () -> Unit,
+    onNavigateToCategoriesScreen: () -> Unit
 
     ) {
     var showAddPlayerDialog by rememberSaveable { mutableStateOf(false) }
@@ -81,7 +81,7 @@ fun StartScreen(
             )
         }
 
-        Row {
+        Column {
             Button(
                 onClick = {
                     val players = startViewModel.getAllPlayers()
@@ -101,27 +101,6 @@ fun StartScreen(
                 )
             ) {
                 Text(text = "Choose Category")
-            }
-
-            Button(
-                onClick = {
-                    val players = startViewModel.getAllPlayers()
-
-                    if (players.size > 2) {
-                        onNavigateToCategoriesScreen()
-                    } else {
-                        showErrorSnackbar = true
-                    }
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                shape = MaterialTheme.shapes.medium,
-                colors = ButtonDefaults.buttonColors(
-                    contentColor = MaterialTheme.colorScheme.onPrimary
-                )
-            ) {
-                Text(text = "Vote")
             }
         }
 

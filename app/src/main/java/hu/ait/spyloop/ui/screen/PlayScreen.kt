@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun PlayScreen(
-    onNavigateToVotingScreen: (String) -> Unit
+    onNavigateToVotingScreen: () -> Unit
 ){
     Column(
         verticalArrangement = Arrangement.Center,
@@ -24,7 +24,9 @@ fun PlayScreen(
             fontSize = 24.sp,
             modifier = Modifier.padding(8.dp))
 
-        Button(onClick = { onNavigateToVotingScreen }) {
+        Button(onClick = {
+            onNavigateToVotingScreen()
+        }) {
             Text(text = "Vote")
         }
     }

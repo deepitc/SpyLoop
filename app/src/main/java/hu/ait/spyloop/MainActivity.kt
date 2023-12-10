@@ -20,8 +20,10 @@ import hu.ait.spyloop.ui.screen.CategoriesScreen
 import hu.ait.spyloop.ui.screen.ConfirmationScreen
 import hu.ait.spyloop.ui.screen.GameScreen
 import hu.ait.spyloop.ui.screen.PlayScreen
+import hu.ait.spyloop.ui.screen.ResultScreen
 import hu.ait.spyloop.ui.screen.SplashScreen
 import hu.ait.spyloop.ui.screen.StartScreen
+import hu.ait.spyloop.ui.screen.VotingScreen
 import hu.ait.spyloop.ui.theme.SpyLoopTheme
 
 @AndroidEntryPoint
@@ -122,12 +124,24 @@ fun NavHost(
             )
         }
 
-        composable("playscreen"){
+        composable("playscreen") {
             PlayScreen(
                 onNavigateToVotingScreen = {
                     navController.navigate("votingscreen")
                 }
             )
+        }
+
+        composable("votingscreen") {
+            VotingScreen(
+                onNavigateToResultScreen = {
+                    navController.navigate("resultscreen")
+                }
+            )
+        }
+
+        composable("resultscreen") {
+            ResultScreen()
         }
     }
 }
