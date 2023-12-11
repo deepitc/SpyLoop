@@ -1,4 +1,4 @@
-package hu.ait.spyloop.ui.screen
+package hu.ait.spyloop.ui.screen.splash
 
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable

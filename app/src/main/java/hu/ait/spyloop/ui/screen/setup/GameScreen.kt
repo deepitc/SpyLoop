@@ -1,4 +1,4 @@
-package hu.ait.spyloop.ui.screen
+package hu.ait.spyloop.ui.screen.setup
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,12 +17,15 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import hu.ait.spyloop.R
+import hu.ait.spyloop.ui.screen.SpyLoopViewModel
+import hu.ait.spyloop.ui.screen.setup.categories.CategoriesViewModel
 import androidx.compose.material3.Text as Text1
 
 @Composable
@@ -30,21 +33,23 @@ fun GameScreen(
     categoryName: String,
     onNavigateToConfirmationScreen: (String, Int) -> Unit,
     categoriesViewModel: CategoriesViewModel = hiltViewModel(),
-    startViewModel: StartViewModel = hiltViewModel()
+    spyLoopViewModel: SpyLoopViewModel = hiltViewModel(),
 ) {
-    val players = startViewModel.getAllPlayers()
+    val context = LocalContext.current
 
-    var secretWord by rememberSaveable { mutableStateOf("") }
+    val players = spyLoopViewModel.getAllPlayers()
+
+    var secretWord by rememberSaveable { mutableStateOf(context.getString(R.string.empty_string)) }
 
     LaunchedEffect(Unit) {
-        startViewModel.pickOutOfLoop(players)
+        spyLoopViewModel.pickOutOfLoop(players)
         secretWord = categoriesViewModel.getWord(categoryName)
     }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(50.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

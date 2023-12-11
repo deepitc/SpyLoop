@@ -1,4 +1,4 @@
-package hu.ait.spyloop.ui.screen
+package hu.ait.spyloop.ui.screen.assignments
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,10 +20,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import hu.ait.spyloop.R
+import hu.ait.spyloop.ui.screen.SpyLoopViewModel
 
 @Composable
 fun AssignmentScreen(
-    startViewModel: StartViewModel = hiltViewModel(),
+    spyLoopViewModel: SpyLoopViewModel = hiltViewModel(),
     secretWord: String,
     currentPlayerIndex: Int,
     onNavigateToConfirmationScreen: (String, Int) -> Unit
@@ -36,7 +37,7 @@ fun AssignmentScreen(
         verticalArrangement = Arrangement.Center
     ) {
         val updatedPlayerIndex = currentPlayerIndex + 1
-        val players = startViewModel.getAllPlayers()
+        val players = spyLoopViewModel.getAllPlayers()
         val player = players[currentPlayerIndex]
 
         Text(

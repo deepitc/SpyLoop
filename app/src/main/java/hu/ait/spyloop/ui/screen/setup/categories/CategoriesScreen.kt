@@ -1,4 +1,4 @@
-package hu.ait.spyloop.ui.screen
+package hu.ait.spyloop.ui.screen.setup.categories
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing

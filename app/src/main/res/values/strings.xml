@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">SpyLoop</string>
-    <string name="spy_loop_game">Spy Loop Game</string>
+    <string name="spy_loop_game">SpyLoop</string>
     <string name="clear_all">Clear All</string>
     <string name="choose_category">Choose Category</string>
     <string name="ok">OK</string>
@@ -9,11 +9,11 @@
     <string name="player_name_cannot_contain_numbers">Player name cannot contain numbers.</string>
     <string name="enter_player_name">Enter Player Name</string>
     <string name="save">Save</string>
-    <string name="you_are_out_of_the_loop">You are out of the loop.</string>
-    <string name="the_secret_word_is">The secret word is: %1$s</string>
+    <string name="you_are_out_of_the_loop">You are Out of the Loop</string>
+    <string name="the_secret_word_is">The secret word is %1$s</string>
     <string name="next_player">Next player</string>
     <string name="you_ve_picked">You\'ve picked: </string>
-    <string name="get_assignments">Get assignments!</string>
+    <string name="get_assignments">Get Assignments</string>
     <string name="hi">Hi %1$s!</string>
     <string name="done_playing">Done playing?</string>
     <string name="vote">Vote</string>
@@ -21,13 +21,19 @@
     <string name="igen">Igen!</string>
     <string name="all_roles_assigned">All Roles Assigned</string>
     <string name="let_s_play">Let\'s play!</string>
-    <string name="you_found_the_player_out_of_the_loop">You found the player Out of the Loop!</string>
-    <string name="the_player_out_of_the_loop_wins">The player Out of the Loop wins!</string>
-    <string name="was_out_of_the_loop">%1$s was Out of the Loop!</string>
+    <string name="you_found_the_player_out_of_the_loop">Congrats! You found the Out of the Loop player.</string>
+    <string name="the_player_out_of_the_loop_wins">The Out of the Loop player wins!</string>
+    <string name="was_out_of_the_loop">%1$s was Out of the Loop.</string>
     <string name="restart_game">Restart Game</string>
     <string name="choose_who_you_think_is_out_of_the_loop">Who is Out of the Loop?</string>
     <string name="all_players_have_voted">All players have voted</string>
     <string name="see_results">See Results</string>
+    <string name="empty_string"></string>
+    <string name="error">error</string>
+    <string name="delete">Delete</string>
+    <string name="instructions">Ask each other questions to figure out who is Out of the Loop.</string>
+    <string name="in_instructions">If you know the secret word, make so clear. Don\'t give the word away, though!</string>
+    <string name="out_instructions">If you are Out of the Loop, pretend you know what the word is. Try to guess it from the questions.</string>
 
     <string-array name="city_locations">
         <item>Beach</item>

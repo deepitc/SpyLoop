@@ -1,4 +1,4 @@
-package hu.ait.spyloop.ui.screen
+package hu.ait.spyloop.ui.screen.setup.categories
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -8,9 +8,9 @@ import javax.inject.Inject
 class CategoriesViewModel @Inject constructor(
 ) : ViewModel() {
     val categoriesList: List<String> =
-        listOf("City Locations", "Household Items", "Hobbies", "Professions", "Animals")
+        listOf("Locations", "Household Items", "Hobbies", "Professions", "Animals")
 
-    val cityLocationsList: List<String> = listOf(
+    val locationsList: List<String> = listOf(
         "Beach", "Park", "Library", "Airport", "Restaurant",
         "School", "Hospital", "Museum", "Gym", "Movie Theater",
         "Zoo", "Grocery Store", "Stadium", "Mall", "Police Station",
@@ -51,7 +51,7 @@ class CategoriesViewModel @Inject constructor(
 
     fun getWord(category: String): String {
         return when (category) {
-            "City Locations" -> cityLocationsList.random()
+            "Locations" -> locationsList.random()
             "Household Items" -> householdItemsList.random()
             "Hobbies" -> hobbiesList.random()
             "Professions" -> professionsList.random()

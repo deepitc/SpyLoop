@@ -14,15 +14,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
-import hu.ait.spyloop.ui.screen.AssignmentScreen
-import hu.ait.spyloop.ui.screen.CategoriesScreen
-import hu.ait.spyloop.ui.screen.ConfirmationScreen
-import hu.ait.spyloop.ui.screen.GameScreen
-import hu.ait.spyloop.ui.screen.PlayScreen
-import hu.ait.spyloop.ui.screen.ResultScreen
-import hu.ait.spyloop.ui.screen.SplashScreen
-import hu.ait.spyloop.ui.screen.StartScreen
-import hu.ait.spyloop.ui.screen.VotingScreen
+import hu.ait.spyloop.ui.screen.assignments.AssignmentScreen
+import hu.ait.spyloop.ui.screen.setup.categories.CategoriesScreen
+import hu.ait.spyloop.ui.screen.assignments.ConfirmationScreen
+import hu.ait.spyloop.ui.screen.setup.GameScreen
+import hu.ait.spyloop.ui.screen.play.PlayScreen
+import hu.ait.spyloop.ui.screen.voting.ResultScreen
+import hu.ait.spyloop.ui.screen.splash.SplashScreen
+import hu.ait.spyloop.ui.screen.setup.StartScreen
+import hu.ait.spyloop.ui.screen.voting.VotingScreen
 import hu.ait.spyloop.ui.theme.SpyLoopTheme
 
 @AndroidEntryPoint

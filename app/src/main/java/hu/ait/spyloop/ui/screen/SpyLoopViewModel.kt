@@ -7,7 +7,7 @@ import hu.ait.spyloop.data.Player
 import javax.inject.Inject
 
 @HiltViewModel
-class StartViewModel @Inject constructor(
+class SpyLoopViewModel @Inject constructor(
 ) : ViewModel() {
 
     companion object {

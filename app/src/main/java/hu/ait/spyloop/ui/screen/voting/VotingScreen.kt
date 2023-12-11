@@ -1,4 +1,4 @@
-package hu.ait.spyloop.ui.screen
+package hu.ait.spyloop.ui.screen.voting
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,14 +28,15 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import hu.ait.spyloop.R
 import hu.ait.spyloop.data.Player
+import hu.ait.spyloop.ui.screen.SpyLoopViewModel
 
 @Composable
 fun VotingScreen(
-    startViewModel: StartViewModel = hiltViewModel(),
+    spyLoopViewModel: SpyLoopViewModel = hiltViewModel(),
     onNavigateToResultScreen: () -> Unit
 ) {
     var currentPlayerIndex by rememberSaveable { mutableStateOf(0) }
-    val players = startViewModel.getAllPlayers()
+    val players = spyLoopViewModel.getAllPlayers()
     var visible by rememberSaveable { mutableStateOf(false) }
 
     Column(
@@ -62,6 +63,7 @@ fun VotingScreen(
 
             Text(
                 text = stringResource(R.string.choose_who_you_think_is_out_of_the_loop),
+                fontSize = 18.sp,
                 modifier = Modifier
                     .background(
                         color = MaterialTheme.colorScheme.surface,
@@ -84,7 +86,7 @@ fun VotingScreen(
         if (visible) {
             Text(
                 text = stringResource(R.string.all_players_have_voted),
-                fontSize = 30.sp,
+                fontSize = 24.sp,
                 color = Color.White,
                 modifier = Modifier
                     .background(

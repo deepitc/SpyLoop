@@ -1,4 +1,4 @@
-package hu.ait.spyloop.ui.screen
+package hu.ait.spyloop.ui.screen.voting
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,14 +24,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import hu.ait.spyloop.R
-import hu.ait.spyloop.ui.screen.StartViewModel.Companion.resetOutOfLooper
+import hu.ait.spyloop.ui.screen.SpyLoopViewModel
+import hu.ait.spyloop.ui.screen.SpyLoopViewModel.Companion.resetOutOfLooper
 
 @Composable
 fun ResultScreen(
-    startViewModel: StartViewModel = hiltViewModel(),
+    spyLoopViewModel: SpyLoopViewModel = hiltViewModel(),
     onNavigateToStartScreen: () -> Unit
 ) {
-    val players = startViewModel.getAllPlayers()
+    val players = spyLoopViewModel.getAllPlayers()
 
     // Initialize playerVotes with zeros
     var playerVotes by rememberSaveable { mutableStateOf(List(players.size) { 0 }) }
@@ -45,7 +46,9 @@ fun ResultScreen(
 
     Column(
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(16.dp)
+
     ) {
         val maxVotes = playerVotes.maxOrNull()
 
@@ -55,7 +58,7 @@ fun ResultScreen(
             if (outOfLooper.size == 1 && outOfLooper[0].outOfLoop) {
                 Text(
                     text = stringResource(R.string.you_found_the_player_out_of_the_loop),
-                    fontSize = 24.sp,
+                    fontSize = 22.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .background(
@@ -68,7 +71,7 @@ fun ResultScreen(
                 Text(
                     text = stringResource(R.string.the_player_out_of_the_loop_wins),
                     textAlign = TextAlign.Center,
-                    fontSize = 24.sp,
+                    fontSize = 22.sp,
                     modifier = Modifier
                         .background(
                             color = MaterialTheme.colorScheme.surface,
@@ -83,7 +86,7 @@ fun ResultScreen(
             Text(
                 text = stringResource(R.string.was_out_of_the_loop, outOfLooper[0].name),
                 textAlign = TextAlign.Center,
-                fontSize = 24.sp,
+                fontSize = 20.sp,
                 color = Color.White,
                 modifier = Modifier
                     .background(

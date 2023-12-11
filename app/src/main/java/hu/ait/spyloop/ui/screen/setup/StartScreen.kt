@@ -1,4 +1,4 @@
-package hu.ait.spyloop.ui.screen
+package hu.ait.spyloop.ui.screen.setup
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -49,11 +49,12 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import hu.ait.spyloop.R
 import hu.ait.spyloop.data.Player
+import hu.ait.spyloop.ui.screen.SpyLoopViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StartScreen(
-    startViewModel: StartViewModel = hiltViewModel(),
+    spyLoopViewModel: SpyLoopViewModel = hiltViewModel(),
     onNavigateToCategoriesScreen: () -> Unit
 
 ) {
@@ -78,13 +79,6 @@ fun StartScreen(
                     )
                 },
                 actions = {
-                    Text(
-                        text = stringResource(R.string.clear_all),
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.clickable {
-                            StartViewModel.clearAllPlayers()
-                        }
-                    )
                     IconButton(onClick = { showAddPlayerDialog = true }) {
                         Icon(
                             Icons.Filled.AddCircle,
@@ -92,6 +86,14 @@ fun StartScreen(
                             tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = stringResource(R.string.clear_all),
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .clickable { SpyLoopViewModel.clearAllPlayers() },
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
                 }
             )
         }
@@ -100,7 +102,7 @@ fun StartScreen(
 
         if (showAddPlayerDialog) {
             AddNewPlayer(
-                startViewModel = startViewModel,
+                spyLoopViewModel = spyLoopViewModel,
                 onDialogDismiss = { showAddPlayerDialog = false }
             )
         }
@@ -108,7 +110,7 @@ fun StartScreen(
         Column {
             Button(
                 onClick = {
-                    val players = startViewModel.getAllPlayers()
+                    val players = spyLoopViewModel.getAllPlayers()
 
                     if (players.size > 2) {
                         onNavigateToCategoriesScreen()
@@ -147,10 +149,10 @@ fun StartScreen(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            items(startViewModel.getAllPlayers()) {
+            items(spyLoopViewModel.getAllPlayers()) {
                 PlayerCard(
                     player = it,
-                    onRemoveItem = { startViewModel.removePlayer(it) }
+                    onRemoveItem = { spyLoopViewModel.removePlayer(it) }
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             }
@@ -161,7 +163,7 @@ fun StartScreen(
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 private fun AddNewPlayer(
-    startViewModel: StartViewModel = hiltViewModel(),
+    spyLoopViewModel: SpyLoopViewModel = hiltViewModel(),
     onDialogDismiss: () -> Unit = {}
 ) {
     // will be used when we extract strings
@@ -175,11 +177,11 @@ private fun AddNewPlayer(
         )
     ) {
         var playerName by rememberSaveable {
-            mutableStateOf("")
+            mutableStateOf(context.getString(R.string.empty_string))
         }
 
         var nameErrorText by rememberSaveable {
-            mutableStateOf("")
+            mutableStateOf(context.getString(R.string.empty_string))
         }
 
         var nameErrorState by rememberSaveable {
@@ -193,7 +195,7 @@ private fun AddNewPlayer(
             if (text.contains(Regex("[^a-zA-Z ]"))) {
                 return Pair(true, context.getString(R.string.player_name_cannot_contain_numbers))
             }
-            return Pair(false, "")
+            return Pair(false, context.getString(R.string.empty_string))
         }
 
         fun validName(text: String) {
@@ -223,7 +225,7 @@ private fun AddNewPlayer(
                     if (nameErrorState)
                         Icon(
                             Icons.Filled.Warning,
-                            "error",
+                            stringResource(R.string.error),
                             tint = MaterialTheme.colorScheme.error
                         )
                 },
@@ -248,7 +250,7 @@ private fun AddNewPlayer(
                 Button(
                     onClick = {
                         if (playerName.isNotEmpty() && !nameErrorState) {
-                            startViewModel.addPlayer(
+                            spyLoopViewModel.addPlayer(
                                 Player(
                                     playerName,
                                     false,
@@ -313,11 +315,11 @@ fun PlayerCard(
                 )
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = "Delete",
+                    contentDescription = stringResource(R.string.delete),
                     modifier = Modifier
                         .size(24.dp)
                         .clickable { onRemoveItem() },
-                    tint = Color.Red
+                    tint = MaterialTheme.colorScheme.surface
                 )
             }
         }
