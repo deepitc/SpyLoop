@@ -32,8 +32,8 @@
     <string name="error">error</string>
     <string name="delete">Delete</string>
     <string name="instructions">Ask each other questions to figure out who is Out of the Loop.</string>
-    <string name="in_instructions">If you know the secret word, make so clear. Don\'t give the word away, though!</string>
-    <string name="out_instructions">If you are Out of the Loop, pretend you know what the word is. Try to guess it from the questions.</string>
+    <string name="in_instructions">If you know the secret word, make it clear but don\'t give the word away!</string>
+    <string name="out_instructions">If you are Out of the Loop, pretend to know what the word is. Try to guess it from the questions and don\'t give yourself away!</string>
 
     <string-array name="city_locations">
         <item>Beach</item>

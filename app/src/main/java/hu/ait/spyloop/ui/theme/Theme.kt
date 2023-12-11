@@ -26,7 +26,8 @@ private val LightColorScheme = lightColorScheme(
     onPrimary = Color.White,
     secondary = darkMaroon,
     tertiary = blueGray,
-    onTertiary = Color.White
+    onTertiary = Color.White,
+    error = Color.White
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
