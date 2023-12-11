@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import hu.ait.spyloop.R
@@ -55,7 +54,7 @@ fun ResultScreen(
         val outOfLooper = players.filter { it.outOfLoop }
 
         if (maxVotes != null && outOfLooper.isNotEmpty()) {
-            val maxVoted = players.filter {it.votes == maxVotes}
+            val maxVoted = players.filter { it.votes == maxVotes }
 
             if (maxVoted.size == 1 && maxVoted[0].outOfLoop) {
                 Text(

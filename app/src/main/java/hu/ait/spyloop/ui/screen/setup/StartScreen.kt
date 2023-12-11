@@ -220,7 +220,12 @@ private fun AddNewPlayer(
                     playerName = it
                     validName(playerName)
                 },
-                label = { Text(text = stringResource(R.string.enter_player_name), color = MaterialTheme.colorScheme.onSurface) },
+                label = {
+                    Text(
+                        text = stringResource(R.string.enter_player_name),
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                },
                 trailingIcon = {
                     if (nameErrorState)
                         Icon(
