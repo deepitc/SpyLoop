@@ -89,7 +89,8 @@ fun StartScreen(
                         Icon(
                             Icons.Filled.AddCircle,
                             null,
-                            tint = MaterialTheme.colorScheme.onSurface)
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
                     }
                 }
             )

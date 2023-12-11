@@ -55,7 +55,7 @@ fun ResultScreen(
             if (outOfLooper.size == 1 && outOfLooper[0].outOfLoop) {
                 Text(
                     text = stringResource(R.string.you_found_the_player_out_of_the_loop),
-                    fontSize = 27.sp,
+                    fontSize = 24.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .background(
@@ -68,7 +68,7 @@ fun ResultScreen(
                 Text(
                     text = stringResource(R.string.the_player_out_of_the_loop_wins),
                     textAlign = TextAlign.Center,
-                    fontSize = 27.sp,
+                    fontSize = 24.sp,
                     modifier = Modifier
                         .background(
                             color = MaterialTheme.colorScheme.surface,
