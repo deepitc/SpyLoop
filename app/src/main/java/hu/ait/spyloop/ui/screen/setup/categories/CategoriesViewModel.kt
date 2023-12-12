@@ -1,49 +1,29 @@
 package hu.ait.spyloop.ui.screen.setup.categories
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import hu.ait.spyloop.R
 import javax.inject.Inject
 
 @HiltViewModel
 class CategoriesViewModel @Inject constructor(
+    @ApplicationContext context: Context,
 ) : ViewModel() {
-    val categoriesList: List<String> =
-        listOf("Locations", "Household Items", "Hobbies", "Professions", "Animals")
+    val categoriesList: List<String> = context.resources.getStringArray(R.array.categories).asList()
 
-    val locationsList: List<String> = listOf(
-        "Beach", "Park", "Library", "Airport", "Restaurant",
-        "School", "Hospital", "Museum", "Gym", "Movie Theater",
-        "Zoo", "Grocery Store", "Stadium", "Mall", "Police Station",
-        "Farm", "Desert", "Mountain", "Space Station", "Amusement Park"
-    )
+    val locationsList: List<String> = context.resources.getStringArray(R.array.locations).asList()
 
-    val householdItemsList: List<String> = listOf(
-        "Refrigerator", "Microwave", "Vacuum Cleaner", "Blender", "Coffee Maker",
-        "Toaster", "Dishwasher", "Washing Machine", "Couch", "Dining Table",
-        "Bedside Lamp", "Clock", "Mirror", "Bookshelf", "Sofa", "Cutting Board",
-        "Trash Can", "Iron", "Shower Curtain", "Tissue Box"
-    )
+    val householdItemsList: List<String> =
+        context.resources.getStringArray(R.array.household_items).asList()
 
-    val hobbiesList: List<String> = listOf(
-        "Painting", "Gardening", "Photography", "Reading", "Hiking", "Cooking",
-        "Fishing", "Dancing", "Gaming", "Traveling", "Yoga", "Writing",
-        "Playing Instruments", "Cycling", "Drawing", "Sculpting", "Bird Watching",
-        "Pottery", "Collecting", "Astronomy"
-    )
+    val hobbiesList: List<String> = context.resources.getStringArray(R.array.hobbies).asList()
 
-    val professionsList: List<String> = listOf(
-        "Doctor", "Teacher", "Firefighter", "Chef", "Pilot", "Artist", "Engineer",
-        "Police Officer", "Scientist", "Athlete", "Musician", "Actor", "Nurse",
-        "Farmer", "Astronaut", "Lawyer", "Journalist", "Carpenter", "Veterinarian",
-        "Electrician"
-    )
+    val professionsList: List<String> =
+        context.resources.getStringArray(R.array.professions).asList()
 
-    val animalsList: List<String> = listOf(
-        "Elephant", "Tiger", "Penguin", "Giraffe", "Dolphin", "Koala", "Cheetah",
-        "Octopus", "Kangaroo", "Polar Bear", "Peacock", "Chimpanzee", "Panda",
-        "Alligator", "Gorilla", "Ostrich", "Flamingo", "Hedgehog", "Raccoon",
-        "Armadillo"
-    )
+    val animalsList: List<String> = context.resources.getStringArray(R.array.animals).asList()
 
     fun getAllCategories(): List<String> {
         return categoriesList

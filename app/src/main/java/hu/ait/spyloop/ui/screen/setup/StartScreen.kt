@@ -82,7 +82,7 @@ fun StartScreen(
                     IconButton(onClick = { showAddPlayerDialog = true }) {
                         Icon(
                             Icons.Filled.AddCircle,
-                            null,
+                            stringResource(R.string.add_player),
                             tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
@@ -166,7 +166,6 @@ private fun AddNewPlayer(
     spyLoopViewModel: SpyLoopViewModel = hiltViewModel(),
     onDialogDismiss: () -> Unit = {}
 ) {
-    // will be used when we extract strings
     val context = LocalContext.current
 
     Dialog(

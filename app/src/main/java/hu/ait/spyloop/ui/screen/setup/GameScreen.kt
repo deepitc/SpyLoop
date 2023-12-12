@@ -55,7 +55,7 @@ fun GameScreen(
     ) {
 
         Text1(
-            text = stringResource(R.string.you_ve_picked) + "\n" + categoryName,
+            text = stringResource(R.string.picked_category, categoryName),
             fontSize = 24.sp,
             textAlign = TextAlign.Center,
             modifier = Modifier

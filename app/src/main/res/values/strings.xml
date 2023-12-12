@@ -6,13 +6,12 @@
     <string name="ok">OK</string>
     <string name="please_add_at_least_three_players_to_begin">Please add at least three players to begin.</string>
     <string name="player_name_cannot_be_empty">Player name cannot be empty.</string>
-    <string name="player_name_cannot_contain_numbers">Player name cannot contain numbers.</string>
+    <string name="player_name_cannot_contain_numbers">Player name can only contain letters.</string>
     <string name="enter_player_name">Enter Player Name</string>
     <string name="save">Save</string>
     <string name="you_are_out_of_the_loop">You are Out of the Loop</string>
     <string name="the_secret_word_is">The secret word is %1$s</string>
     <string name="next_player">Next player</string>
-    <string name="you_ve_picked">You\'ve picked: </string>
     <string name="get_assignments">Get Assignments</string>
     <string name="hi">Hi %1$s!</string>
     <string name="done_playing">Done playing?</string>
@@ -32,10 +31,21 @@
     <string name="error">error</string>
     <string name="delete">Delete</string>
     <string name="instructions">Ask each other questions to figure out who is Out of the Loop.</string>
-    <string name="in_instructions">If you know the secret word, make it clear but don\'t give the word away!</string>
-    <string name="out_instructions">If you are Out of the Loop, pretend to know what the word is. Try to guess it from the questions and don\'t give yourself away!</string>
+    <string name="in_instructions">If you know the secret word, make it clear without revealing the word!</string>
+    <string name="out_instructions">If you are Out of the Loop, pretend to know what the word is, while trying to guess it from the questions. Don\'t give yourself away!</string>
+    <string name="picked_category">You\'ve picked: \n%1$s</string>
+    <string name="add_player">Add player</string>
+    <string name="splash_icon">splash icon</string>
 
-    <string-array name="city_locations">
+    <string-array name="categories">
+        <item>Locations</item>
+        <item>Household Items</item>
+        <item>Hobbies</item>
+        <item>Professions</item>
+        <item>Animals</item>
+    </string-array>
+
+    <string-array name="locations">
         <item>Beach</item>
         <item>Park</item>
         <item>Library</item>
